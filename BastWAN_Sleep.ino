@@ -30,7 +30,7 @@ void setup() {
   pinMode(RFM_SWITCH, OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
   LoRa.setPins(SS, RFM_RST, RFM_DIO0);
-  if (!LoRa.begin(868125000)) {
+  if (!LoRa.begin(863125000)) {
     SerialUSB.println("Starting LoRa failed!\nNow that's disappointing...");
     while (1);
   }
@@ -43,14 +43,16 @@ void setup() {
   LoRa.writeRegister(REG_PA_CONFIG, 0b11111111);
   LoRa.writeRegister(REG_PA_DAC, PA_DAC_HIGH);
   LoRa.writeRegister(REG_OCP, 0b00111111); // MAX OCP
-  digitalWrite(RFM_SWITCH, 0);
+  digitalWrite(RFM_SWITCH, LOW);
+  digitalWrite(RFM_TCXO, HIGH);
   SerialUSB.println(" done!");
   SerialUSB.print("Sending packet");
   LoRa.beginPacket();
   LoRa.write((const uint8_t*)"Hole Hola Hole Ho HoHole Hola Hole Ho HoHole Hola Hole Ho HoHole Hola Hole Ho HoHole Hola Hole Ho HoHole Hola Hole Ho HoHole Hola Hole Ho HoHole Hola Hole Ho HoHole Hola Hole Ho HoHole Hola Hole Ho HoHole Hola Hole Ho HoHole Hola Hole Ho Ho", 240);
   LoRa.endPacket();
   SerialUSB.println(" done!");
-  digitalWrite(RFM_SWITCH, 1);
+  digitalWrite(RFM_SWITCH, LOW);
+  digitalWrite(RFM_TCXO, LOW);
 }
 
 void loop() {
