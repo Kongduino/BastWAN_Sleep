@@ -9,6 +9,7 @@
 #define REG_MODEM_CONFIG_3 0x26
 #define REG_PA_DAC 0x4D
 #define PA_DAC_HIGH 0x87
+#define RFM_RFSW_ON (12u)
 
 #define RFM_TCXO (40u)
 #define RFM_SWITCH (41u)
@@ -28,6 +29,7 @@ void setup() {
   SerialUSB.print("Starting LoRa");
   pinMode(RFM_TCXO, OUTPUT);
   pinMode(RFM_SWITCH, OUTPUT);
+  pinMode(RFM_RFSW_ON, OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
   LoRa.setPins(SS, RFM_RST, RFM_DIO0);
   if (!LoRa.begin(863125000)) {
@@ -53,6 +55,7 @@ void setup() {
   SerialUSB.println(" done!");
   digitalWrite(RFM_SWITCH, LOW);
   digitalWrite(RFM_TCXO, LOW);
+  digitalWrite(RFM_RFSW_ON, LOW);
 }
 
 void loop() {
